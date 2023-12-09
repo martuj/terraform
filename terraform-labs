@@ -488,6 +488,57 @@ the security group name “dynamic_block_resource”. Verify the ingress rules a
 
 terraform destroy
 
+============================================
+
+Workspace
+=====================================
+terraform workspace list - It will list out all the workspaces
+
+terraform workspace new prod - It create a workspace and swtich to prod. Similary you can create
+
+terraform workspace new dev
+
+terraform workspace show - It will show the current workspace you are in
+
+Switch workspace by - terraform workspace select prod
+
+vi main.tf
+
+provider "aws" {
+  region   = "eu-central-1"
+  }
+
+locals {
+  instance_name = "${terraform.workspace}-instance" 
+}
+
+resource "aws_instance" "ec2_example" {
+
+    ami = "ami-0767046d1677be5a0" 
+
+    instance_type = "t2.micro"
+
+    tags = {
+      Name = local.instance_name
+    }
+}
+
+vi variables.tf
+
+variable "instance_type" {
+    type = string
+}
+
+dev
+terraform init
+terraform plan 
+terraform apply 
+terraform destroy
+prod
+terraform init
+terraform plan 
+terraform apply
+terraform destroy
 
 
 
