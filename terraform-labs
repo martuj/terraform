@@ -478,7 +478,7 @@ resource "aws_security_group" "main" {
       Name = "Dynamic block Security group"
    }
 }
-
+}
 terraform init
 terraform plan
 terraform apply
